@@ -13,7 +13,7 @@ Prerequisites: You must be familiar with Backend TypeScript, ideally with Expres
 Install the Endurance CLI to create a new project.
 
 ```bash
-npm install -g endurance
+npm install -g @programisto/endurance
 ```
 
 You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.

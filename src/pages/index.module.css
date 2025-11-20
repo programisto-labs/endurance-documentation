@@ -4,57 +4,1010 @@
  */
 
 .heroBanner {
-  padding: 0;
-  text-align: left;
-  color: #fff;
-  min-height: 700px;
-}
-.second-row{
-  min-height: 300px;
-}
-
-.heroBanner, .second-row, .second-row {
   position: relative;
-  background-image: url('/img/space-background3.jpg') !important; 
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  padding: 6rem 0 8rem;
+  overflow: hidden;
+  background: #000000;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  transform: translateZ(0);
+  /* Force GPU acceleration */
+  backface-visibility: hidden;
+  /* Improve performance */
 }
 
-.heroBanner::before, .second-row::before {
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background: #000000;
+}
+
+/* Space theme with stars and spaceship - Hyperspace effect */
+.heroBackground::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background-image:
+    /* Optimized: Reduced number of stars for better performance */
+    radial-gradient(1px 1px at 5% 10%, white, transparent),
+    radial-gradient(1px 1px at 15% 25%, white, transparent),
+    radial-gradient(1px 1px at 25% 15%, white, transparent),
+    radial-gradient(1px 1px at 35% 30%, white, transparent),
+    radial-gradient(1px 1px at 45% 20%, white, transparent),
+    radial-gradient(1px 1px at 55% 35%, white, transparent),
+    radial-gradient(1px 1px at 65% 25%, white, transparent),
+    radial-gradient(1px 1px at 75% 40%, white, transparent),
+    radial-gradient(1px 1px at 85% 30%, white, transparent),
+    radial-gradient(1px 1px at 95% 45%, white, transparent),
+    radial-gradient(1px 1px at 10% 50%, white, transparent),
+    radial-gradient(1px 1px at 20% 60%, white, transparent),
+    radial-gradient(1px 1px at 30% 55%, white, transparent),
+    radial-gradient(1px 1px at 40% 65%, white, transparent),
+    radial-gradient(1px 1px at 50% 70%, white, transparent),
+    radial-gradient(1px 1px at 60% 75%, white, transparent),
+    radial-gradient(1px 1px at 70% 80%, white, transparent),
+    radial-gradient(1px 1px at 80% 85%, white, transparent),
+    radial-gradient(1px 1px at 90% 90%, white, transparent),
+    /* Medium stars */
+    radial-gradient(2px 2px at 8% 18%, white, transparent),
+    radial-gradient(2px 2px at 18% 28%, white, transparent),
+    radial-gradient(2px 2px at 28% 38%, white, transparent),
+    radial-gradient(2px 2px at 38% 48%, white, transparent),
+    radial-gradient(2px 2px at 48% 58%, white, transparent),
+    radial-gradient(2px 2px at 58% 68%, white, transparent),
+    radial-gradient(2px 2px at 68% 78%, white, transparent),
+    radial-gradient(2px 2px at 78% 88%, white, transparent),
+    /* Bright stars */
+    radial-gradient(3px 3px at 20% 30%, white, transparent),
+    radial-gradient(3px 3px at 40% 50%, white, transparent),
+    radial-gradient(3px 3px at 60% 70%, white, transparent),
+    radial-gradient(3px 3px at 80% 40%, white, transparent);
+  background-size: 100% 100%;
+  background-position: 0% 0%;
+  will-change: transform, background-position;
+  animation: starfield 20s linear infinite;
+  opacity: 0.9;
+  transform: translateZ(0);
+  /* Force GPU acceleration */
 }
 
-.heroBanner {
-  text-align: center;
-  padding: 4rem 0;
-  color: white;
-  z-index: 1;
-}
+@keyframes starfield {
+  0% {
+    background-position: 0% 0%;
+    transform: translateZ(0) scale(1);
+  }
 
-.second-row {
-  text-align: center;
-  padding: 2rem 0;
-  color: white;
-  z-index: 1;
-}
-
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+  100% {
+    background-position: 100% 100%;
+    transform: translateZ(0) scale(1.1);
   }
 }
 
-.container{
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
+.heroBackground::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 30%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  will-change: transform, opacity;
+  animation: nebulaPulse 20s ease-in-out infinite;
+  pointer-events: none;
+  transform: translateZ(0);
+  /* Force GPU acceleration */
 }
 
+@keyframes nebulaPulse {
 
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateZ(0) scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translateZ(0) scale(1.05);
+  }
+}
+
+/* Space elements - stars and spaceship */
+.heroGeometricShapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transform: translateZ(0);
+  /* Force GPU acceleration */
+  will-change: contents;
+}
+
+/* Hyperspace streaking stars (optimized for performance) */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  animation: hyperspaceStreak 3s linear infinite;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+  transform: translateZ(0);
+  /* Force GPU acceleration */
+}
+
+.star::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(0);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 30%,
+      rgba(255, 255, 255, 0.7) 50%,
+      rgba(255, 255, 255, 0.4) 70%,
+      rgba(255, 255, 255, 0) 100%);
+  will-change: height, opacity;
+  animation: streakLine 3s linear infinite;
+}
+
+.star1 {
+  width: 3px;
+  height: 3px;
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.star2 {
+  width: 2px;
+  height: 2px;
+  top: 20%;
+  right: 20%;
+  animation-delay: 0.2s;
+}
+
+.star3 {
+  width: 4px;
+  height: 4px;
+  top: 30%;
+  left: 25%;
+  animation-delay: 0.4s;
+}
+
+.star4 {
+  width: 2px;
+  height: 2px;
+  top: 40%;
+  right: 30%;
+  animation-delay: 0.6s;
+}
+
+.star5 {
+  width: 3px;
+  height: 3px;
+  top: 50%;
+  left: 35%;
+  animation-delay: 0.8s;
+}
+
+.star6 {
+  width: 2px;
+  height: 2px;
+  top: 60%;
+  right: 25%;
+  animation-delay: 1s;
+}
+
+.star7 {
+  width: 3px;
+  height: 3px;
+  top: 70%;
+  left: 45%;
+  animation-delay: 1.2s;
+}
+
+.star8 {
+  width: 2px;
+  height: 2px;
+  top: 80%;
+  right: 40%;
+  animation-delay: 1.4s;
+}
+
+.star9 {
+  width: 3px;
+  height: 3px;
+  top: 15%;
+  left: 55%;
+  animation-delay: 0.1s;
+}
+
+.star10 {
+  width: 2px;
+  height: 2px;
+  top: 25%;
+  right: 50%;
+  animation-delay: 0.3s;
+}
+
+.star11 {
+  width: 4px;
+  height: 4px;
+  top: 35%;
+  left: 65%;
+  animation-delay: 0.5s;
+}
+
+.star12 {
+  width: 2px;
+  height: 2px;
+  top: 45%;
+  right: 60%;
+  animation-delay: 0.7s;
+}
+
+.star13 {
+  width: 3px;
+  height: 3px;
+  top: 55%;
+  left: 75%;
+  animation-delay: 0.9s;
+}
+
+.star14 {
+  width: 2px;
+  height: 2px;
+  top: 65%;
+  right: 70%;
+  animation-delay: 1.1s;
+}
+
+.star15 {
+  width: 3px;
+  height: 3px;
+  top: 75%;
+  left: 85%;
+  animation-delay: 1.3s;
+}
+
+.star16 {
+  width: 2px;
+  height: 2px;
+  top: 85%;
+  right: 80%;
+  animation-delay: 1.5s;
+}
+
+@keyframes hyperspaceStreak {
+  0% {
+    transform: translateZ(0) translateY(-100vh) scale(0.5);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateZ(0) translateY(100vh) scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes streakLine {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+
+  15% {
+    height: 40px;
+    opacity: 0.7;
+  }
+
+  85% {
+    height: 120px;
+    opacity: 0.7;
+  }
+
+  100% {
+    height: 150px;
+    opacity: 0;
+  }
+}
+
+/* Spaceship (optimized) */
+.spaceship {
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  top: 20%;
+  right: 10%;
+  will-change: transform;
+  animation: spaceshipFloat 25s ease-in-out infinite;
+  opacity: 0.6;
+  transform: translateZ(0);
+  /* Force GPU acceleration */
+}
+
+.spaceship::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+  clip-path: polygon(0% 50%, 30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.spaceship::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: engineGlow 2s ease-in-out infinite;
+}
+
+@keyframes spaceshipFloat {
+
+  0%,
+  100% {
+    transform: translateZ(0) translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateZ(0) translate(30px, -20px) rotate(5deg);
+  }
+
+  50% {
+    transform: translateZ(0) translate(60px, -10px) rotate(0deg);
+  }
+
+  75% {
+    transform: translateZ(0) translate(30px, 10px) rotate(-5deg);
+  }
+}
+
+@keyframes engineGlow {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) translateZ(0) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateZ(0) scale(1.2);
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.heroBadge {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1.25rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.badgeText {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.gradientText {
+  background: linear-gradient(120deg, #fff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.ctaButton {
+  background: white;
+  color: #667eea;
+  border: none;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+  background: #f8f9fa;
+}
+
+.secondaryButton {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.secondaryButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  transform: translateY(-2px);
+}
+
+.heroStats {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat {
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.codeSection {
+  padding: 6rem 0;
+  background: #000000;
+  position: relative;
+  overflow: hidden;
+}
+
+.codeSection::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(1px 1px at 5% 10%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 15% 25%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 25% 15%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 35% 30%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 45% 20%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 55% 35%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 65% 25%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 75% 40%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 85% 30%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 95% 45%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(2px 2px at 40% 50%, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(2px 2px at 60% 70%, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(2px 2px at 80% 40%, rgba(255, 255, 255, 0.2), transparent);
+  background-size: 100% 100%;
+  background-position: 0% 0%;
+  opacity: 0.4;
+  animation: parallaxStars 30s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes parallaxStars {
+  0% {
+    background-position: 0% 0%;
+    transform: translateZ(0) translateY(0);
+  }
+  100% {
+    background-position: 100% 100%;
+    transform: translateZ(0) translateY(-20px);
+  }
+}
+
+.codeSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.02) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.codeContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.codeText {
+  padding-right: 2rem;
+  position: relative;
+}
+
+.codeText .sectionTitle {
+  margin-top: 0;
+}
+
+.codeBlock {
+  margin-top: calc(450px + 1rem);
+}
+
+.codeIllustration {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto 1rem;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustrationSvg {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0.95) contrast(1.05);
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: white;
+  line-height: 1.2;
+}
+
+.sectionDescription {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featureList li {
+  padding: 0.75rem 0;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.codeBlock {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.builtOnSection {
+  padding: 6rem 0;
+  background: #0a0a0a;
+  position: relative;
+}
+
+.builtOnTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: white;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+.poweredByContainer {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.poweredByChip {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem 2.5rem;
+  z-index: 2;
+  width: 100%;
+  max-width: calc(100% - 4rem);
+  box-sizing: border-box;
+}
+
+.poweredByText {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.connectionLines {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: flex-start;
+  padding: 0 2rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.connectionLine {
+  position: relative;
+  width: 2px;
+  height: 80px;
+  margin: 0 auto;
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.2) 30%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.2) 70%,
+      rgba(255, 255, 255, 0.4) 100%);
+  overflow: hidden;
+}
+
+.connectionLine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 100%);
+  animation: currentFlow 2s ease-in-out infinite;
+}
+
+.currentFlow {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.6),
+      transparent);
+  border-radius: 2px;
+  animation: currentFlow 2s ease-in-out infinite;
+  filter: blur(2px);
+}
+
+.connectionLine:nth-child(1) .currentFlow {
+  animation-delay: 0s;
+}
+
+.connectionLine:nth-child(2) .currentFlow {
+  animation-delay: 0.4s;
+}
+
+.connectionLine:nth-child(3) .currentFlow {
+  animation-delay: 0.8s;
+}
+
+@keyframes currentFlow {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+  margin-top: 80px;
+}
+
+.techCard {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.techCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.techIcon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.5rem;
+  color: white;
+  opacity: 0.9;
+}
+
+.techIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.techTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.techArrow {
+  font-size: 1rem;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.techCard:hover .techArrow {
+  opacity: 1;
+}
+
+.techDescription {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.whySection {
+  padding: 6rem 0;
+  background: #000000;
+  position: relative;
+}
+
+.whySection .sectionTitle {
+  text-align: center;
+  margin-bottom: 4rem;
+  color: white;
+}
+
+.reasonsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.reasonCard {
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.reasonCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+}
+
+.reasonIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.reasonCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reasonCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.reasonCard h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.reasonCard p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 996px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .codeContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .codeText {
+    padding-right: 0;
+  }
+
+  .heroStats {
+    gap: 2rem;
+  }
+
+  .reasonsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .techGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 0;
+  }
+
+  .builtOnTitle {
+    font-size: 1.75rem;
+  }
+
+  .connectionLines {
+    display: none;
+  }
+
+  .poweredByContainer {
+    margin-bottom: 2rem;
+  }
+
+  .poweredByChip {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .heroBanner {
+    padding: 4rem 0 6rem;
+    min-height: auto;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaButton,
+  .secondaryButton {
+    width: 100%;
+  }
+}
