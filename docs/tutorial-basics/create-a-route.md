@@ -4,98 +4,109 @@ sidebar_position: 2
 
 # Create a Route
 
-If you are already familiar with Express and NodeJS, this will be plain simple. 
+If you are already familiar with Express and TypeScript, this will be plain simple. 
 
 
 ## Create a router
 
-First, we need to initiate a new router object like this : 
+First, we need to create a router class that extends `EnduranceRouter` : 
 
-```js
-import routerBase from 'endurance-core/lib/router.js';
-const router = routerBase();
+```typescript
+import { EnduranceRouter } from '@programisto/endurance';
+import { app } from '@programisto/endurance';
+
+class MyRouter extends EnduranceRouter {
+  protected setupRoutes(): void {
+    // Your routes will be defined here
+  }
+}
+
+export default new MyRouter(app.getAuthMiddleware(), app.getUpload());
 ```
 
 ## Add routes 
 
-Adding routes is simple :
+Adding routes is simple. You can use all HTTP verbs (GET, POST, PUT, DELETE, PATCH) :
 
-```js
-router.get("/",  (req, res) => {
-  res.status(200).json({ message: 'Hello World!' });
-});
+```typescript
+import { EnduranceRouter } from '@programisto/endurance';
+import { app } from '@programisto/endurance';
+import { Request, Response } from 'express';
+
+class MyRouter extends EnduranceRouter {
+  protected setupRoutes(): void {
+    this.get('/', {}, async (req: Request, res: Response) => {
+      res.status(200).json({ message: 'Hello World!' });
+    });
+  }
+}
+
+export default new MyRouter(app.getAuthMiddleware(), app.getUpload());
 ```
 
-The router support all basic HTTP verbs (from Express). 
+The router supports all basic HTTP verbs (from Express). The second parameter of route methods is `securityOptions` which can contain:
+- `requireAuth?: boolean` - Require authentication (default: true)
+- `permissions?: string[]` - Required permissions
+- `checkOwnership?: boolean` - Check if user owns the resource 
 
 
 ## AutoWire
 
-If you have a Model and you want to create an easy CRUD API, you can use the router AutoWire function :
-First, we need to change to requireDb : true. Then :
+If you have a Model (that extends `EnduranceSchema`) and you want to create an easy CRUD API, you can use the router `autoWireSecure` method :
 
-
-```js
-import routerBase from 'endurance-core/lib/router.js';
-const router = routerBase();
-
-router.autoWire(ModelName, 'ModelName', restrictAccess);
-```
-
-restrictAccess is an optionnal parameter that is an object composed 2 functions : checkPermissions and restrictToOwner. Basic definitions of thoses methods will be available through the auth.js library. 
-So lets add : 
-
-```js
-import auth from 'endurance-core/lib/auth.js';
-
-const restrictkAccess = {
-  checkUserPermissions: auth.checkUserPermissions(['canManageModelObjects']), 
-  restrictToOwner: auth.restrictToOwner((req) => req.modelName.userId)  
-};
-```
-
-Here's the final example to autoWire a Webhook Model : 
-
-```js
-import routerBase from 'endurance-core/lib/router.js';
-const router = routerBase();
-
+```typescript
+import { EnduranceRouter } from '@programisto/endurance';
+import { app } from '@programisto/endurance';
 import Webhook from '../models/Webhook.model.js';
-import auth  from 'endurance-core/lib/auth.js';
 
-const restrictAccess = {
-  checkUserPermissions: auth.checkUserPermissions(['canManageWebhooks']),
-  restrictToOwner: auth.restrictToOwner((req) => req.webhook.userId)
-};
+class WebhookRouter extends EnduranceRouter {
+  protected setupRoutes(): void {
+    // This will create CRUD routes: GET /, GET /:id, POST /, PATCH /:id, DELETE /:id
+    this.autoWireSecure(Webhook, 'Webhook', {
+      requireAuth: true,
+      permissions: ['canManageWebhooks'],
+      checkOwnership: true
+    });
+  }
+}
 
-router.autoWire(Webhook, 'Webhook', restrictAccess);
-
-export default router;
-
+export default new WebhookRouter(app.getAuthMiddleware(), app.getUpload());
 ```
 
-## API Versionning
+The `autoWireSecure` method creates the following routes automatically:
+- `GET /` - List all items
+- `GET /:id` - Get a specific item
+- `POST /` - Create a new item
+- `PATCH /:id` - Update an item
+- `DELETE /:id` - Delete an item
 
-API versionning is very important if you want to ensure users stability. 
+The `securityOptions` parameter can contain:
+- `requireAuth?: boolean` - Require authentication (default: true)
+- `permissions?: string[]` - Required permissions array
+- `checkOwnership?: boolean` - Check if user owns the resource
 
-API versionning is already available with Endurance. To create a new version of a router, you just need to duplicate the file and rename by prefixing the version number. 
+## API Versioning
+
+API versioning is very important if you want to ensure users stability. 
+
+API versioning is already available with Endurance. To create a new version of a router, you just need to duplicate the file and rename by prefixing the version number. 
 
 Example : 
 ```bash
-webhook.router.js
+webhook.router.ts
 ```
 
 to
 ```bash
-v1-webhook.router.js
-v2-webhook.router.js
+v1-webhook.router.ts
+v2-webhook.router.ts
 ```
 
-Now all the routes will be available through : /version/router-name/route
+Now all the routes will be available through : `/version/router-name/route`
 
 Example :
 ```bash
 /v1/webhook/
 ```
 
-If API versionning is a matter to you now or in the future, it's strongly recommended to add v1 prefix to all routers by default. 
+If API versioning is a matter to you now or in the future, it's strongly recommended to add v1 prefix to all routers by default. 

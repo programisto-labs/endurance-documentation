@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "endurance": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@programisto/endurance",
+                "mcp-server"
+            ]
+        }
+    }
+}

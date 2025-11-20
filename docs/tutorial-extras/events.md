@@ -4,20 +4,31 @@ sidebar_position: 1
 
 # Events
 
-Events are internal events that a module listener can listen. 
+Events are internal events that a module listener can listen to. 
 
 You can emit events anytime in your application 
 
-```js
-import { emitter, eventTypes } from 'endurance-core/lib/emitter.js';
+```typescript
+import { enduranceEmitter, enduranceEventTypes } from '@programisto/endurance';
 
-emitter.emit(eventTypes.ORDER_CREATED, newOrder);
+// Emit an event
+enduranceEmitter.emit(enduranceEventTypes.ORDER_CREATED, newOrder);
 ```
 
-The eventTypes values doesn't have to be created first. It's created dynamically. 
+The `enduranceEventTypes` values don't have to be created first. They are created dynamically when accessed. 
 
 You can list all existing events in the application using the Endurance CLI command : 
 
 ```bash
 endurance list-events
 ```
+
+## Event Naming Convention
+
+Events are automatically converted to uppercase. For example:
+- `enduranceEventTypes.orderCreated` becomes `ORDERCREATED`
+- `enduranceEventTypes.USER_REGISTERED` becomes `USER_REGISTERED`
+
+## Listening to Events
+
+To listen to events, use listeners as described in the [Create a Listener](../tutorial-basics/create-a-listener.md) documentation.

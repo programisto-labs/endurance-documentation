@@ -6,18 +6,21 @@ sidebar_position: 1
 
 A consumer is the listener of external queuing systems like AMQP or Kafka (currently both are supported by Endurance). 
 
-To create a new consumer, you must create a "consumers" folder and a xxx.consumer.js file. 
+To create a new consumer, you must create a "consumers" folder and a `xxx.consumer.ts` file. 
 
-```js
-import consumer from 'endurance-core/lib/consumer.js';
+## AMQP Consumer
+
+```typescript
+import { enduranceConsumer } from '@programisto/endurance';
 import Order from '../models/order.model.js';
 
-const processAmqpMessage = async (msg) => {
+const processAmqpMessage = async (messageContent: string) => {
   try {
-    const orderData = JSON.parse(msg.content.toString());
+    const orderData = JSON.parse(messageContent);
 
-    // Exemple de logique : créer une nouvelle commande à partir des données du message
-    const order = new Order(orderData);
+    // Example logic: create a new order from message data
+    const OrderModel = Order.getModel();
+    const order = new OrderModel(orderData);
     await order.save();
 
     console.log(`Order processed and saved: ${order._id}`);
@@ -26,12 +29,27 @@ const processAmqpMessage = async (msg) => {
   }
 };
 
-const processKafkaMessage = async (message) => {
-  try {
-    const orderData = JSON.parse(message.value);
+enduranceConsumer.createConsumer('amqp', {
+  url: process.env.AMQP_URL || 'amqp://localhost',
+  queue: 'orderQueue'
+}, processAmqpMessage);
 
-    // Exemple de logique : mettre à jour l'état de la commande en fonction des données du message
-    const order = await Order.findById(orderData.orderId);
+export default {};
+```
+
+## Kafka Consumer
+
+```typescript
+import { enduranceConsumer } from '@programisto/endurance';
+import Order from '../models/order.model.js';
+
+const processKafkaMessage = async (messageContent: string) => {
+  try {
+    const orderData = JSON.parse(messageContent);
+
+    // Example logic: update order status based on message data
+    const OrderModel = Order.getModel();
+    const order = await OrderModel.findById(orderData.orderId);
     if (order) {
       order.status = orderData.status;
       await order.save();
@@ -43,9 +61,22 @@ const processKafkaMessage = async (message) => {
   }
 };
 
-consumer.createConsumer('amqp', { queue: 'orderQueue' }, processAmqpMessage);
-
-consumer.createConsumer('kafka', { topic: 'orderTopic', groupId: 'orderServiceGroup' }, processKafkaMessage);
+enduranceConsumer.createConsumer('kafka', {
+  brokers: process.env.KAFKA_BROKERS?.split(',') || ['localhost:9092'],
+  topic: 'orderTopic',
+  groupId: 'orderServiceGroup'
+}, processKafkaMessage);
 
 export default {};
 ```
+
+## Consumer Options
+
+### AMQP Options
+- `url: string` - AMQP connection URL (e.g., `amqp://localhost`)
+- `queue: string` - Queue name to consume from
+
+### Kafka Options
+- `brokers: string[]` - Array of Kafka broker addresses
+- `topic: string` - Topic name to consume from
+- `groupId: string` - Consumer group ID

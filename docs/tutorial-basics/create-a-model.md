@@ -4,35 +4,76 @@ sidebar_position: 3
 
 # Create a Model
 
-## Create a mongoose model
+## Create an Endurance schema
 
-Create and file a mongoose schema object containing all the properties of your model object. 
+Create a TypeScript class that extends `EnduranceSchema` using Typegoose decorators. Endurance uses Typegoose which provides a type-safe way to work with Mongoose.
 
-```js
-import mongoose from 'mongoose';
+```typescript
+import { EnduranceSchema, EnduranceModelType } from '@programisto/endurance';
 
-const webhookSchema = new mongoose.Schema({
-    url: {
-        type: String,
-        required: true
-    },
-    event: {
-        type: String,
-        required: true
-    },
-    created_at: {
-        type: Date,
-        default: Date.now
-    }
-});
+class Webhook extends EnduranceSchema {
+  @EnduranceModelType.prop({ required: true })
+  url!: string;
 
-const Webhook = mongoose.model('Webhook', webhookSchema);
+  @EnduranceModelType.prop({ required: true })
+  event!: string;
+}
 
 export default Webhook;
 ```
 
-Now, even if modules are independant, they can share and work on some common models if necessary. If you want to work with the same models on multiple modules, you'll have to have distinct names for your schemas. Then you can specify a parameter to create a common MongoDB collection name :
+## Using the model
 
-```js
-const Webhook = mongoose.model('Webhook', webhookSchema, 'webhook');
+To use the model in your code, call the static `getModel()` method:
+
+```typescript
+import Webhook from './models/Webhook.model.js';
+
+// Get the Mongoose model
+const WebhookModel = Webhook.getModel();
+
+// Use it like a regular Mongoose model
+const webhooks = await WebhookModel.find();
+const webhook = new WebhookModel({ url: 'https://example.com', event: 'USER_CREATED' });
+await webhook.save();
 ```
+
+## Advanced schema options
+
+You can use all Typegoose decorators and options:
+
+```typescript
+import { EnduranceSchema, EnduranceModelType } from '@programisto/endurance';
+import { Ref } from '@programisto/endurance';
+
+class User extends EnduranceSchema {
+  @EnduranceModelType.prop({ required: true })
+  name!: string;
+
+  @EnduranceModelType.prop({ required: true, unique: true })
+  email!: string;
+
+  @EnduranceModelType.prop({ default: Date.now })
+  createdAt!: Date;
+
+  @EnduranceModelType.prop({ ref: () => 'Role' })
+  role?: Ref<Role>;
+}
+
+export default User;
+```
+
+## Collection name
+
+By default, Typegoose will use the class name (lowercased and pluralized) as the collection name. To specify a custom collection name, use the `@EnduranceModelType.modelOptions` decorator:
+
+```typescript
+@EnduranceModelType.modelOptions({
+  schemaOptions: { collection: 'custom_webhook_collection' }
+})
+class Webhook extends EnduranceSchema {
+  // ...
+}
+```
+
+Note: Even if modules are independent, they can share and work on some common models if necessary. If you want to work with the same models on multiple modules, make sure to use the same collection name.

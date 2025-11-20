@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Let's install and get started with **Endurance in less than 5 minutes**.
 
-Prerequisites: You must be familiar with Backend Javascript, ideally with Express.
+Prerequisites: You must be familiar with Backend TypeScript, ideally with Express.
 
 ## Install Endurance CLI
 
@@ -28,7 +28,11 @@ endurance new-project
 npm install
 ```
 
-If endurance is not installed in your path and is not recognized, try `npx endurance new` instead.
+If endurance is not installed in your path and is not recognized, try `npx endurance new-project` instead.
+
+## MCP Server (Optional)
+
+Endurance includes a Model Context Protocol (MCP) server that can be installed in your projects to provide AI assistants with access to Endurance commands and project structure. The MCP server is automatically available when you install `@programisto/endurance` in your project.
 
 ## Start your application
 
