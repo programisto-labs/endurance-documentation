@@ -8,7 +8,7 @@ applications:
       flavor: none
     web:
       commands:
-        start: npm run serve -- --port $PORT --host 0.0.0.0
+        start: npm start -- --port $PORT --host 0.0.0.0
       upstream:
         socket_family: tcp
       locations:
@@ -25,9 +25,6 @@ applications:
         set -eux
         echo "📦 Installation des dépendances..."
         npm install
-        echo "🏗️  Build de la documentation Docusaurus..."
-        npm run build
-        echo "✅ Build terminé avec succès"
       deploy: |
         set -eux
         echo "🚀 Documentation Endurance déployée avec succès"

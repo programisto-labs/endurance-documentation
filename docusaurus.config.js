@@ -13,8 +13,9 @@ const config = {
   favicon: 'img/space-station-white.ico',
 
   // Set the production url of your site here
-  // Use environment variable or default to endurancejs.com for production
-  url: process.env.DOCUSAURUS_URL || 'https://endurancejs.com',
+  // Use environment variable if available, otherwise default
+  // Docusaurus will accept requests from any domain when running in dev mode
+  url: process.env.DOCUSAURUS_URL || 'http://localhost:3000',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
