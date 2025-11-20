@@ -4,7 +4,7 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -13,7 +13,8 @@ const config = {
   favicon: 'img/space-station-white.ico',
 
   // Set the production url of your site here
-  url: 'https://endurancejs.com.main-bvxea6i-xcuf3652hubp4.fr-4.platformsh.site/',
+  // Use environment variable or default to endurancejs.com for production
+  url: process.env.DOCUSAURUS_URL || 'https://endurancejs.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -75,7 +76,7 @@ const config = {
             position: 'left',
             label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/programisto-labs/endurance',
             label: 'GitHub',

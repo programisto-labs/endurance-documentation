@@ -147,3 +147,4 @@ When configured with an AI assistant, you can ask it to:
 
 The AI assistant will use the MCP tools to perform these actions automatically.
 
+

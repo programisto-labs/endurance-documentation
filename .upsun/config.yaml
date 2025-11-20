@@ -40,6 +40,15 @@ routes:
     upstream: "documentation:http"
   
   # Redirection www vers le domaine principal
-  "https://www.{default}":
+  "https://www.{default}/":
+    type: redirect
+    to: "https://{default}/"
+  
+  # Redirection HTTP vers HTTPS
+  "http://{default}/":
+    type: redirect
+    to: "https://{default}/"
+  
+  "http://www.{default}/":
     type: redirect
     to: "https://{default}/"
