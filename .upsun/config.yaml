@@ -7,6 +7,11 @@ applications:
     container_profile: BALANCED
     build:
       flavor: none
+    variables:
+      # Set your production domain here
+      # This prevents Docusaurus from doing automatic redirects that conflict with Upsun routes
+      DOCUSAURUS_URL: "https://endurancejs.com"
+      NODE_ENV: "production"
     web:
       commands:
         start: npm start -- --port $PORT --host 0.0.0.0

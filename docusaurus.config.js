@@ -13,9 +13,10 @@ const config = {
   favicon: 'img/space-station-white.ico',
 
   // Set the production url of your site here
-  // Use environment variable if available, otherwise default
-  // Docusaurus will accept requests from any domain when running in dev mode
-  url: process.env.DOCUSAURUS_URL || 'http://localhost:3000',
+  // On Upsun, set DOCUSAURUS_URL environment variable to your domain (e.g. https://endurancejs.com)
+  // In dev mode, defaults to localhost
+  // Docusaurus will use this URL for canonical links and base URL generation
+  url: process.env.DOCUSAURUS_URL || (process.env.NODE_ENV === 'production' ? 'https://endurancejs.com' : 'http://localhost:3000'),
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
