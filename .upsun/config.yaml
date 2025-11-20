@@ -4,6 +4,7 @@ applications:
   # Application Documentation (Docusaurus)
   documentation:
     type: nodejs:22
+    container_profile: BALANCED
     build:
       flavor: none
     web:
