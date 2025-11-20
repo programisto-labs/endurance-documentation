@@ -1,0 +1,47 @@
+# Configuration Upsun pour Endurance Documentation (Docusaurus)
+
+applications:
+  # Application Documentation (Docusaurus)
+  documentation:
+    type: nodejs:22
+    source:
+      root: .
+    build:
+      flavor: none
+    web:
+      commands:
+        start: npm run serve -- --port $PORT --host 0.0.0.0
+      upstream:
+        socket_family: tcp
+      locations:
+        "/":
+          passthru: true
+        "/img":
+          passthru: true
+    mounts:
+      ".docusaurus":
+        source: local
+        source_path: .docusaurus
+    hooks:
+      build: |
+        set -eux
+        echo "📦 Installation des dépendances..."
+        npm install
+        echo "🏗️  Build de la documentation Docusaurus..."
+        npm run build
+        echo "✅ Build terminé avec succès"
+      deploy: |
+        set -eux
+        echo "🚀 Documentation Endurance déployée avec succès"
+
+# Routes pour l'application
+routes:
+  # Route principale pour la documentation
+  "https://{default}/":
+    type: upstream
+    upstream: "documentation:http"
+  
+  # Redirection www vers le domaine principal
+  "https://www.{default}":
+    type: redirect
+    to: "https://{default}/"
