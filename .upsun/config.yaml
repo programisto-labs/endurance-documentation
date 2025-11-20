@@ -4,8 +4,6 @@ applications:
   # Application Documentation (Docusaurus)
   documentation:
     type: nodejs:22
-    source:
-      root: .
     build:
       flavor: none
     web:
