@@ -34,48 +34,35 @@ applications:
         echo "🚀 Documentation Endurance déployée avec succès"
 
 # Routes pour l'application
+# Routes spécifiques pour endurancejs.com uniquement
+# Les routes {default} sont retirées car elles écrasent les routes spécifiques
 routes:
   # Route principale avec slash (celle qui sert le contenu)
   "https://endurancejs.com/":
     type: upstream
     upstream: "documentation:http"
   
-  # Route sans slash - redirige vers avec slash (évite la boucle)
+  # Route sans slash - redirige vers avec slash
   "https://endurancejs.com":
     type: redirect
     to: "https://endurancejs.com/"
   
-  # Redirection www vers le domaine principal
+  # Redirection www vers le domaine principal (avec slash)
   "https://www.endurancejs.com/":
     type: redirect
     to: "https://endurancejs.com/"
   
+  # Redirection www vers le domaine principal (sans slash)
   "https://www.endurancejs.com":
     type: redirect
     to: "https://endurancejs.com/"
   
-  # Redirection HTTP vers HTTPS
+  # Redirection HTTP vers HTTPS (avec slash)
   "http://endurancejs.com/":
     type: redirect
     to: "https://endurancejs.com/"
   
+  # Redirection HTTP vers HTTPS (sans slash)
   "http://endurancejs.com":
     type: redirect
     to: "https://endurancejs.com/"
-  
-  # Routes génériques pour les autres domaines (domaine Upsun par défaut)
-  "https://{default}/":
-    type: upstream
-    upstream: "documentation:http"
-  
-  "https://{default}":
-    type: redirect
-    to: "https://{default}/"
-  
-  "http://{default}/":
-    type: redirect
-    to: "https://{default}/"
-  
-  "http://{default}":
-    type: redirect
-    to: "https://{default}/"
