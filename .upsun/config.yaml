@@ -35,13 +35,47 @@ applications:
 
 # Routes pour l'application
 routes:
-  # Route principale - utilise {default} qui correspond automatiquement au domaine configuré
+  # Route principale avec slash (celle qui sert le contenu)
   "https://endurancejs.com/":
     type: upstream
     upstream: "documentation:http"
+  
+  # Route sans slash - redirige vers avec slash (évite la boucle)
+  "https://endurancejs.com":
+    type: redirect
+    to: "https://endurancejs.com/"
+  
+  # Redirection www vers le domaine principal
   "https://www.endurancejs.com/":
     type: redirect
     to: "https://endurancejs.com/"
+  
+  "https://www.endurancejs.com":
+    type: redirect
+    to: "https://endurancejs.com/"
+  
+  # Redirection HTTP vers HTTPS
+  "http://endurancejs.com/":
+    type: redirect
+    to: "https://endurancejs.com/"
+  
+  "http://endurancejs.com":
+    type: redirect
+    to: "https://endurancejs.com/"
+  
+  # Routes génériques pour les autres domaines (domaine Upsun par défaut)
+  "https://{default}/":
+    type: upstream
+    upstream: "documentation:http"
+  
+  "https://{default}":
+    type: redirect
+    to: "https://{default}/"
+  
   "http://{default}/":
+    type: redirect
+    to: "https://{default}/"
+  
+  "http://{default}":
     type: redirect
     to: "https://{default}/"
