@@ -16,7 +16,7 @@ const config = {
   // On Upsun, set DOCUSAURUS_URL environment variable to your domain (e.g. https://endurancejs.com)
   // In dev mode, defaults to localhost
   // Docusaurus will use this URL for canonical links and base URL generation
-  url: process.env.DOCUSAURUS_URL || (process.env.NODE_ENV === 'production' ? 'https://endurancejs.com.main-bvxea6i-xcuf3652hubp4.fr-4.platformsh.site/' : 'http://localhost:3000'),
+  url: process.env.DOCUSAURUS_URL || 'https://endurancejs.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
