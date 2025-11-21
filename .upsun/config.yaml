@@ -9,7 +9,7 @@ applications:
       flavor: none
     web:
       commands:
-        start: "npm start""
+        start: "npm start"
       upstream:
         socket_family: tcp
       locations:
