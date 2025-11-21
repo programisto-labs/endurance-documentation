@@ -9,7 +9,7 @@ applications:
       flavor: none
     web:
       commands:
-        start: serve -s build -l $PORT
+        start: serve -s build -l tcp://0.0.0.0:$PORT --no-clipboard --single
       upstream:
         socket_family: tcp
       locations:
@@ -35,39 +35,13 @@ applications:
 
 # Routes pour l'application
 routes:
-  # Route principale pour endurancejs.com
+  # Route principale - utilise {default} qui correspond automatiquement au domaine configuré
   "https://endurancejs.com/":
     type: upstream
     upstream: "documentation:http"
-  
-  # Route avec {default} pour les autres domaines (domaine Upsun par défaut)
-  "https://{default}/":
-    type: upstream
-    upstream: "documentation:http"
-  
-  # Redirection www vers le domaine principal
   "https://www.endurancejs.com/":
     type: redirect
     to: "https://endurancejs.com/"
-  
-  "https://www.{default}/":
-    type: redirect
-    to: "https://{default}/"
-  
-  # Redirection HTTP vers HTTPS pour endurancejs.com
-  "http://endurancejs.com/":
-    type: redirect
-    to: "https://endurancejs.com/"
-  
-  "http://www.endurancejs.com/":
-    type: redirect
-    to: "https://endurancejs.com/"
-  
-  # Redirection HTTP vers HTTPS pour les autres domaines
   "http://{default}/":
-    type: redirect
-    to: "https://{default}/"
-  
-  "http://www.{default}/":
     type: redirect
     to: "https://{default}/"
