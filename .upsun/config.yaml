@@ -9,7 +9,7 @@ applications:
       flavor: none
     web:
       commands:
-        start: serve -s build -l tcp://0.0.0.0:$PORT --no-clipboard --single
+        start: npx http-server build -p $PORT -a 0.0.0.0 -S
       upstream:
         socket_family: tcp
       locations:
