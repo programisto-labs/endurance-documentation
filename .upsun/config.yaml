@@ -9,7 +9,7 @@ applications:
       flavor: none
     web:
       commands:
-        start: npx http-server build -p $PORT -a 0.0.0.0 -S
+        start: "npm start"
       upstream:
         socket_family: tcp
       locations:
@@ -37,32 +37,12 @@ applications:
 # Routes spécifiques pour endurancejs.com uniquement
 # Les routes {default} sont retirées car elles écrasent les routes spécifiques
 routes:
-  # Route principale avec slash (celle qui sert le contenu)
   "https://endurancejs.com/":
     type: upstream
     upstream: "documentation:http"
-  
-  # Route sans slash - redirige vers avec slash
-  "https://endurancejs.com":
-    type: redirect
-    to: "https://endurancejs.com/"
-  
-  # Redirection www vers le domaine principal (avec slash)
   "https://www.endurancejs.com/":
     type: redirect
     to: "https://endurancejs.com/"
-  
-  # Redirection www vers le domaine principal (sans slash)
-  "https://www.endurancejs.com":
+  "http://{default}/":
     type: redirect
-    to: "https://endurancejs.com/"
-  
-  # Redirection HTTP vers HTTPS (avec slash)
-  "http://endurancejs.com/":
-    type: redirect
-    to: "https://endurancejs.com/"
-  
-  # Redirection HTTP vers HTTPS (sans slash)
-  "http://endurancejs.com":
-    type: redirect
-    to: "https://endurancejs.com/"
+    to: "https://{default}/"
